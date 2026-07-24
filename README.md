@@ -29,7 +29,8 @@ Lightweight Arduino helper to run a callback at a fixed interval.
 ## API Reference
 
 ### `DV_EveryInterval()`
-Creates an instance with no interval and no callback.
+Creates an instance with `interval = 0` and no callback.
+With this default value, the callback is executed on every `update()` call once a callback is set.
 
 ### `DV_EveryInterval(unsigned long interval)`
 Creates an instance with an interval (milliseconds), callback not set.
@@ -39,6 +40,7 @@ Creates an instance with interval and callback.
 
 ### `DV_EveryInterval& setInterval(unsigned long interval)`
 Sets interval in milliseconds.
+Special case: `interval == 0` means the callback is executed on every `update()` call.
 Returns a reference to the same object to allow chaining.
 
 ### `DV_EveryInterval& setCallback(void (*callback)())`
@@ -51,8 +53,10 @@ Checks whether the next execution time has been reached and runs the callback wh
 
 ## Important Behavior Notes
 
-- The first callback execution is scheduled after one full interval.
-	- Example: with `3000`, first callback occurs around `millis() == 3000`.
+- The first callback execution is scheduled after one full interval.   
+	*(Example: with `3000`, first callback occurs around `millis() == 3000`).*
+- If `setInterval(0)` is used (or an instance is created with `interval = 0`), the callback is executed on every `update()` call.
+- Use `interval = 0` only when you intentionally want per-loop execution.
 - If no callback is set, `update()` does nothing when the interval elapses.
 - This utility is based on `millis()`, so it is non-blocking and suitable for cooperative multitasking.
 

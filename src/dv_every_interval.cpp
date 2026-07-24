@@ -17,11 +17,17 @@ DV_EveryInterval &DV_EveryInterval::setCallback(void (*callback)()) {
 
 DV_EveryInterval &DV_EveryInterval::setInterval(unsigned long interval) {
   _interval = interval;
+  _nextExecutionTime = millis() + _interval;
 
   return *this;
 }
 
 void DV_EveryInterval::update() {
+  if (_interval == 0) {
+    if (_callback) { _callback(); }
+    return;
+  }
+
   if (!_isInitialized) {
     _nextExecutionTime = millis() + _interval;
     _isInitialized = true;
@@ -29,8 +35,8 @@ void DV_EveryInterval::update() {
   }
 
   long unsigned currentTime = millis();
-  if (currentTime >= _nextExecutionTime) {
-    _nextExecutionTime = currentTime + _interval;
+  if ((long)(currentTime - _nextExecutionTime) >= 0) {
+    _nextExecutionTime += _interval;
     if (_callback) { _callback(); }
   }
 }
