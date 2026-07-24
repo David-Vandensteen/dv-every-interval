@@ -12,7 +12,7 @@ class DV_EveryInterval {
     void update();
 
   private:
-    unsigned long _interval = 0;
+    unsigned long _interval = 1;
     unsigned long _nextExecutionTime = 0;
     bool _isInitialized = false;
     void (*_callback)() = nullptr;
