@@ -1,13 +1,13 @@
 #include <Arduino.h>
-#include "dv_foreach_interval.h"
+#include <dv_every_interval.h>
 
-static DV_ForeachInterval foreachInterval;
+static DV_EveryInterval everyInterval;
 
 void setup() {
   Serial.begin(115200);
-  Serial.println("DV_ForeachInterval test");
+  Serial.println("DV_EveryInterval test");
 
-  foreachInterval
+  everyInterval
     .setInterval(3000)
     .setCallback([]() {
       Serial.print(millis());
@@ -16,5 +16,5 @@ void setup() {
 }
 
 void loop() {
-  foreachInterval.update();
+  everyInterval.update();
 }
