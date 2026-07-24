@@ -35,7 +35,7 @@ void DV_EveryInterval::update() {
   }
 
   long unsigned currentTime = millis();
-  if (currentTime >= _nextExecutionTime) {
+  if ((long)(currentTime - _nextExecutionTime) >= 0) {
     _nextExecutionTime += _interval;
     if (_callback) { _callback(); }
   }
