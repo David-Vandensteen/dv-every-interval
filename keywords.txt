@@ -1,0 +1,5 @@
+DV_ForeachInterval	KEYWORD1
+
+setCallback	KEYWORD2
+setInterval KEYWORD2
+update KEYWORD2
