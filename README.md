@@ -51,8 +51,8 @@ Checks whether the next execution time has been reached and runs the callback wh
 
 ## Important Behavior Notes
 
-- The first callback execution is scheduled after one full interval.
-	- Example: with `3000`, first callback occurs around `millis() == 3000`.
+- The first callback execution is scheduled after one full interval.   
+	*(Example: with `3000`, first callback occurs around `millis() == 3000`).*
 - If no callback is set, `update()` does nothing when the interval elapses.
 - This utility is based on `millis()`, so it is non-blocking and suitable for cooperative multitasking.
 
