@@ -23,7 +23,11 @@ DV_EveryInterval &DV_EveryInterval::setInterval(unsigned long interval) {
 }
 
 void DV_EveryInterval::update() {
-  if (_interval == 0) { return; }
+  if (_interval == 0) {
+    if (_callback) { _callback(); }
+    return;
+  }
+
   if (!_isInitialized) {
     _nextExecutionTime = millis() + _interval;
     _isInitialized = true;
