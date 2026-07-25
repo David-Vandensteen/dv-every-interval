@@ -1,4 +1,4 @@
-DV_EveryInterval	KEYWORD1
+DV_EveryInterval KEYWORD1
 
 setCallback	KEYWORD2
 setInterval KEYWORD2
