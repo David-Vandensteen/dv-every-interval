@@ -8,6 +8,7 @@ class DV_EveryInterval {
     explicit DV_EveryInterval(unsigned long interval);
     explicit DV_EveryInterval(unsigned long interval, void (*callback)());
     DV_EveryInterval &setCallback(void (*callback)());
+    DV_EveryInterval &setCallback(void (*callback)(void*), void* context = nullptr);
     DV_EveryInterval &setInterval(unsigned long interval);
     void update();
 
@@ -16,6 +17,8 @@ class DV_EveryInterval {
     unsigned long _nextExecutionTime = 0;
     bool _isInitialized = false;
     void (*_callback)() = nullptr;
+    void (*_callbackCtx)(void*) = nullptr;
+    void* _context = nullptr;
 };
 
 #endif

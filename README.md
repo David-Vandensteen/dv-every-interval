@@ -26,6 +26,34 @@ Lightweight Arduino helper to run a callback at a fixed interval.
 2. In the Arduino IDE, go to **Sketch > Include Library > Add .ZIP Library...**
 3. Select the downloaded ZIP file to install the library.
 
+## Example Usage
+
+```cpp
+#include <Arduino.h>
+#include <dv_every_interval.h>
+#include "callback.h"
+
+static DV_EveryInterval everyInterval(3000, &callBack);
+
+void setup() {
+  Serial.begin(115200);
+  Serial.println("DV_EveryInterval test");
+}
+
+void loop() {
+  everyInterval.update();
+}
+
+/*
+output:
+DV_EveryInterval test
+3000 It's time to display this message
+6000 It's time to display this message
+9000 It's time to display this message
+...
+*/
+```
+
 ## API Reference
 
 ### `DV_EveryInterval()`
@@ -44,7 +72,13 @@ Special case: `interval == 0` means the callback is executed on every `update()`
 Returns a reference to the same object to allow chaining.
 
 ### `DV_EveryInterval& setCallback(void (*callback)())`
-Sets the callback function.
+Sets a plain callback function.
+Returns a reference to the same object to allow chaining.
+
+### `DV_EveryInterval& setCallback(void (*callback)(void*), void* context = nullptr)`
+Sets a contextual callback function with a user-supplied `context` pointer passed on each invocation.
+Useful when the callback needs access to an object instance without a global variable or a capturing lambda.
+Calling either `setCallback` overload clears the other.
 Returns a reference to the same object to allow chaining.
 
 ### `void update()`
@@ -69,6 +103,7 @@ Checks whether the next execution time has been reached and runs the callback wh
 
 - [examples/01-basic/01-basic.ino](examples/01-basic/01-basic.ino) : constructor + external callback function
 - [examples/02-builder/02-builder.ino](examples/02-builder/02-builder.ino) : chainable configuration + lambda callback
+- [examples/03-context/03-context.ino](examples/03-context/03-context.ino) : contextual callback — static function + `void*` context pointer
 
 
 ## License
