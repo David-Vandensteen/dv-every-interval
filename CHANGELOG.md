@@ -2,6 +2,14 @@
 
 ## [1.1.0]
 
+### Added
+- Contextual callback overload: `setCallback(void (*callback)(void*), void* context = nullptr)`.
+- New example `03-context` demonstrating the static function + `void*` context pattern.
+
+### Changed
+- `update()` now invokes the contextual callback (`_callbackCtx`) when set, falling back to the plain callback otherwise.
+- Calling either `setCallback` overload clears the other, preventing ambiguous state.
+
 ## [1.0.1]
 
 - Renamed library from `dv_foreach_interval` to `dv_every_interval` to better reflect its purpose and avoid confusion with the `foreach` concept.
